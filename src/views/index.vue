@@ -112,24 +112,25 @@ const translte = computed(() => {
 .client > div {
   background-color: #fdfdfb;
   font-family: 'Noto Serif SC', 'songti';
-  @apply h-24 my-1 px-2 flex items-center justify-between opacity-90 text-4xl text-black
+  @apply h-24 my-1 flex items-center justify-around opacity-90 text-4xl text-black;
 }
 .client .icon {
   width: 70px;
   height: 70px;
   background: url(/UI_HOME.png);
-  background-size: auto 1600%;
   filter: invert(20%);
   opacity: .5;
 }
 .operations .icon {
   background-position: -294px -375px;
-  
+  background-size: auto 1600%;
 }
 .warehouse .icon {
-  background-position: -294px -375px;
+  background-position: 120.4px -660.8px;
+  background-size: auto 1700%;
 }
 .setting .icon {
-  background-position: -294px -375px;
+  background-position: -60.375px -53.375px;
+  background-size: auto 1700%;
 }
 </style>
