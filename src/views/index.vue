@@ -110,9 +110,32 @@ const translte = computed(() => {
   color: #fff;
  }
 .client > div {
+  position: relative;
   background-color: #fdfdfb;
-  font-family: 'Noto Serif SC', 'songti';
-  @apply h-24 my-1 flex items-center justify-around opacity-90 text-4xl text-black;
+  font-family: 'FZZhunYaSong';
+  @apply h-24 my-1 flex items-center justify-around opacity-90 text-5xl text-black text-opacity-90 font-bold;
+}
+.client > div::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80%;
+  background: url(/point-bg.png) no-repeat left bottom;
+  background-size: contain;
+  opacity: .1;
+  z-index: 0;
+}
+.client > div:first-child:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  width: 70%;
+  height: 2px;
+  background-color: #ff5e19;
+  z-index: 1;
 }
 .client .icon {
   width: 70px;

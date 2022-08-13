@@ -1,7 +1,15 @@
 @font-face {
   font-family: 'Bender';
-  src: url('Bender.woff2') format('woff2'),
-      url('Bender.woff') format('woff');
+  src: url('/Bender.woff2') format('woff2'),
+      url('/Bender.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'FZZhunYaSong';
+  src: url('/FZZhunYaSong.woff2') format('woff2'),
+      url('/FZZhunYaSong.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
