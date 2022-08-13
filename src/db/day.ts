@@ -4,7 +4,7 @@ const days: DayItem[] = [
     getter: {
       orundums: 100,
     },
-    extra: '每日任务可获得100玉',
+    extra: '每日任务可获得×100玉',
   },
 ];
 

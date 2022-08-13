@@ -61,13 +61,9 @@ export default defineStore('main', {
     // 计算周期性获得的资源
     calcTimeResources(unit: 'day' | 'week' | 'month', events: EventItem[]) {
       const { start, end } = this;
-      let diff = 0;
-      if (unit === 'week') {
-        diff = end.week() - start.week();
-      } else if (unit === 'month') {
-        diff = end.month() - start.month();
-      } else {
-        diff = end.diff(start, unit);
+      let diff = end.clone().endOf(unit).diff(start.clone().endOf(unit), unit);
+      if (end.isSame(start, unit)) {
+        diff -= 1;
       }
       const r = {
         originiuns: 0,

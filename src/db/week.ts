@@ -5,7 +5,7 @@ const weeks: WeekItem[] = [
       originiuns: 0,
       orundums: 500,
     },
-    extra: '每周任务可获得500玉',
+    extra: '每周任务可获得合成玉×500',
   },
   {
     name: '剿灭',
@@ -13,7 +13,7 @@ const weeks: WeekItem[] = [
       originiuns: 0,
       orundums: 1800,
     },
-    extra: '每周剿灭可获得1800玉',
+    extra: '每周剿灭可获得合成玉×1800',
   },
 ];
 
