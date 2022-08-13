@@ -1,12 +1,10 @@
 import dayjs from "dayjs";
-import { defineStore } from "pinia";
+import { defineStore, PiniaPluginContext, StateTree } from "pinia";
 import { mergeWith } from "ramda";
 import { offsetStartTime, offsetEndTime } from "::/utils";
 import dayEvents from "::/db/day";
 import weekEvents from "::/db/week";
 import monthEvents from "::/db/month";
-
-type Resource = "originiuns" | "orundums" | "headhunting";
 
 function mergeResource(u: Resources, n: Resources) {
   return mergeWith((u1: number, n1: number) => u1 + n1, u, n);
@@ -14,8 +12,9 @@ function mergeResource(u: Resources, n: Resources) {
 
 export default defineStore("main", {
   state: () => {
+    const historyWarehouse = JSON.parse(localStorage.getItem('warehouse') || '')
     return {
-      warehouse: {
+      warehouse: historyWarehouse.value || {
         originiuns: 0,
         orundums: 0,
         headhunting: 0,
@@ -41,8 +40,8 @@ export default defineStore("main", {
     headhunting: (state) => state.warehouse.headhunting + state.resources.headhunting,
   },
   actions: {
-    addWarehouseResource(resource: Resource, num: number) {
-      this.warehouse[resource] += num;
+    setWarehouseResource(resource: Resource, num: number) {
+      this.warehouse[resource] = num;
     },
     addResource(resource: Resource, num: number) {
       this.resources[resource] += num;
@@ -77,3 +76,12 @@ export default defineStore("main", {
     },
   },
 });
+
+export const subscribe = (context: PiniaPluginContext) => {
+  context.store.$subscribe((mutation, state) => {
+    localStorage.setItem('warehouse', JSON.stringify({
+      time: state.start,
+      value: state.warehouse,
+    }));
+  });
+};

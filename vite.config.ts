@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import Components from 'unplugin-vue-components/vite';
+import { VantResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path';
 import fs from 'fs'
 import Unocss from 'unocss/vite';
@@ -32,6 +33,9 @@ export default defineConfig({
       deep: true,
       extensions: ['vue', 'ts'],
       directoryAsNamespace: true,
+      resolvers: [
+        VantResolver(),
+      ],
       types: [{
         from: 'vue-router',
         names: ['RouterLink', 'RouterView'],

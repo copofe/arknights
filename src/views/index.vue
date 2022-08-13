@@ -1,6 +1,6 @@
 <script lang="ts">
 export default {
-  name: "PageIndex",
+  name: "Index",
 };
 </script>
 
@@ -45,18 +45,18 @@ const translte = computed(() => {
         </div>
       </div>
       <div class="client">
-        <div class="operations">
+        <router-link :to="{ name: 'Operations' }" class="unit operations">
           <div>作战</div>
           <div class="icon"></div>
-        </div>
-        <div class="warehouse translate-x--8">
+        </router-link>
+        <router-link :to="{ name: 'Warehouse' }" class="unit warehouse translate-x--8">
           <div>仓库</div>
           <div class="icon"></div>
-        </div>
-        <div class="setting">
+        </router-link>
+        <router-link :to="{ name: 'Setting' }" class="unit setting">
           <div>设置</div>
           <div class="icon"></div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -109,25 +109,26 @@ const translte = computed(() => {
   background-color: rgba(0, 0, 0, .5);
   color: #fff;
  }
-.client > div {
+.client .unit {
   position: relative;
   background-color: #fdfdfb;
   font-family: 'FZZhunYaSong';
-  @apply h-24 my-1 flex items-center justify-around opacity-90 text-5xl text-black text-opacity-90 font-bold;
+  font-size: 42px;
+  @apply my-2 px-2 py-4 flex justify-around opacity-90 text-black text-opacity-90 font-bold overflow-hidden;
 }
-.client > div::before {
+.client .unit::before {
   content: '';
   position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 80%;
+  height: 75%;
   background: url(/point-bg.png) no-repeat left bottom;
   background-size: contain;
   opacity: .1;
   z-index: 0;
 }
-.client > div:first-child:after {
+.client .unit:first-child:after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -138,22 +139,22 @@ const translte = computed(() => {
   z-index: 1;
 }
 .client .icon {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   background: url(/UI_HOME.png);
   filter: invert(20%);
   opacity: .5;
 }
 .operations .icon {
-  background-position: -294px -375px;
+  background-position: calc(-420px * 0.6) calc(-535.714px * 0.6);
   background-size: auto 1600%;
 }
 .warehouse .icon {
-  background-position: 120.4px -660.8px;
+  background-position: calc(172px * 0.6) calc(-944px * 0.6);
   background-size: auto 1700%;
 }
 .setting .icon {
-  background-position: -60.375px -53.375px;
+  background-position: calc(-86.25px * 0.6) calc(-76.25px * 0.6);
   background-size: auto 1700%;
 }
 </style>
