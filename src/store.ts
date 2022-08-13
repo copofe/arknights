@@ -12,7 +12,7 @@ function mergeResource(u: Resources, n: Resources) {
 
 export default defineStore("main", {
   state: () => {
-    const historyWarehouse = JSON.parse(localStorage.getItem('warehouse') || '')
+    const historyWarehouse = JSON.parse(localStorage.getItem('warehouse') || '{}');
     return {
       warehouse: historyWarehouse.value || {
         originiuns: 0,
