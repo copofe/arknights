@@ -61,7 +61,7 @@ const onChange = (val: string, detail: { name: string }) => {
           <img :src="r.icon">
         </div>
         <div class="flex-1 ml-4 flex">
-          <div class="flex-1 desc text-black text-2">
+          <div class="flex-1 desc text-black text-2.5">
             {{ r.source }}
           </div>
         </div>
