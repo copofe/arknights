@@ -7,7 +7,7 @@ declare global {
     headhunting?: number;
   }
   
-  type ResourceGetter = Resources | ((date: [Dayjs, Dayjs]) => Resources);
+  type ResourceGetter = Resources | ((start: Dayjs, end: Dayjs) => Resources);
   
   interface DayItem {
     name: string;

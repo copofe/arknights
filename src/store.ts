@@ -26,7 +26,7 @@ export default defineStore("main", {
         headhunting: 0,
       },
       start: offsetStartTime(dayjs()),
-      end: offsetEndTime(dayjs().add(1, "month")),
+      end: offsetEndTime(dayjs('2022-10-31')),
     };
   },
   getters: {
@@ -53,20 +53,21 @@ export default defineStore("main", {
     // 计算周期性获得的资源
     calcTimeResources(unit: 'day' | 'week' | 'month', events: EventItem[]) {
       const diff = this.end.diff(this.start, unit);
+      const len = unit === 'day' ? diff : diff + 1;
       const r = {
         originiuns: 0,
         orundums: 0,
         headhunting: 0,
       };
-      for (let index = 0; index < diff; index++) {
+      for (let index = 0; index < len; index++) {
         events.forEach((e) => {
-          const { originiuns = 0, orundums = 0, headhunting = 0 } = e.getter as Resources;
+          const { originiuns = 0, orundums = 0, headhunting = 0 } = typeof e.getter === 'object' ? e.getter : e.getter(this.start, this.end);
           r.originiuns += originiuns;
           r.orundums += orundums;
           r.headhunting += headhunting;
         });
       }
-      console.log(diff, unit, r);
+      console.log(len, unit, r);
       this.resources = mergeResource(this.resources, r);
     },
     init() {

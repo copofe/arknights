@@ -5,6 +5,7 @@ import Components from 'unplugin-vue-components/vite';
 import path from 'path';
 import fs from 'fs'
 import Unocss from 'unocss/vite';
+import transformerDirective from '@unocss/transformer-directives'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,7 +22,11 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    Unocss(),
+    Unocss({
+      transformers: [
+        transformerDirective(),
+      ],
+    }),
     Components({
       dts: 'src/components.d.ts',
       deep: true,

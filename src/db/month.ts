@@ -11,8 +11,7 @@ const months: MonthItem[] = [
   },
   {
     name: '每月签到',
-    getter: (date: [Dayjs, Dayjs]) => {
-      const [ start, end ] = date
+    getter: (start, end) => {
       let headhunting = 0
       if (start.isBefore(dayjs(start).date(17)) || end.isAfter(dayjs(end).date(17))) {
         headhunting += 1

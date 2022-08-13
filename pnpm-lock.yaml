@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@copofe/eslint-config': ^0.1.14
   '@types/ramda': ^0.28.15
+  '@unocss/transformer-directives': ^0.45.6
   '@vitejs/plugin-vue': ^3.0.0
   '@vueuse/core': ^9.1.0
   dayjs: ^1.11.4
@@ -30,6 +31,7 @@ dependencies:
 devDependencies:
   '@copofe/eslint-config': 0.1.14_qugx7qdu5zevzvxaiqyxfiwquq
   '@types/ramda': 0.28.15
+  '@unocss/transformer-directives': 0.45.6
   '@vitejs/plugin-vue': 3.0.2_vite@3.0.6+vue@3.2.37
   eslint: 8.21.0
   typescript: 4.7.4
@@ -1646,7 +1648,6 @@ packages:
 
   /@unocss/core/0.45.6:
     resolution: {integrity: sha512-AeV2/HOTnmc2t2Z0oJ4qKhxDuvYKJ4sVLhqZi+Ex8SP5JSm65SrW3kmGWJMkSGHqJG6ey2ugAiZh6rHzELlB7A==}
-    dev: false
 
   /@unocss/inspector/0.45.6:
     resolution: {integrity: sha512-3Gx28OnCSf73OKlxKXs2JOvWqBeXgNSZdY9DaNZxj0yPFnNfTsdbyH16pk/ETV2Ab0xF+123oN0EI7SbFHYs0w==}
@@ -1736,7 +1737,6 @@ packages:
     dependencies:
       '@unocss/core': 0.45.6
       css-tree: 2.2.0
-    dev: false
 
   /@unocss/transformer-variant-group/0.45.6:
     resolution: {integrity: sha512-rVf/6ZgXwRqW1Xeia59ggk4L/9SAMUW0+slkm3mmvgn2fgJ0Pj4rzhLszRsHi3Oua0ZMbQoFXw+mY/GEEA6KfQ==}
@@ -2229,7 +2229,6 @@ packages:
     dependencies:
       mdn-data: 2.0.28
       source-map-js: 1.0.2
-    dev: false
 
   /cssesc/3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
@@ -3397,7 +3396,6 @@ packages:
 
   /mdn-data/2.0.28:
     resolution: {integrity: sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g==}
-    dev: false
 
   /merge-stream/2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
