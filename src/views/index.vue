@@ -6,16 +6,31 @@ export default {
 
 <script lang="ts" setup>
 import { useDeviceOrientation } from '@vueuse/core';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import useStore from '::/store';
 
-const resources = useStore();
+const store = useStore();
+const {
+  originiuns, orundums, total, end,
+} = storeToRefs(store);
+
+const endDate = computed(() => end.value.format('YYYY-MM-DD'));
 const { gamma } = useDeviceOrientation();
 
 const origin = 4.5;
 const translte = computed(() => {
   return -(((gamma.value || 0) + origin * 10) / origin);
 });
+
+const dateSelector = ref(false);
+const showDateSelector = () => {
+  dateSelector.value = true;
+};
+const onDateChange = (val: Date) => {
+  store.setEndTime(val.valueOf());
+  dateSelector.value = false;
+};
 </script>
 
 <template>
@@ -24,12 +39,15 @@ const translte = computed(() => {
   <div id="originiums" />
   <div class="flex-1 flex relative">
     <div class="flex-1 flex flex-col justify-end">
-      <div class="px-2 text-xs text-gray-300">
-        <div>开发进度</div>
+      <div class="px-2 pb-2 text-xs text-gray-300">
+        <div>tips</div>
+        <div>* 点击时间可修改</div>
+        <div class="mt-1">开发进度</div>
         <div class="line-through opacity-50">* 库存资源设置</div>
         <div class="line-through opacity-50">* 日常资源计算</div>
         <div>* 活动资源计算</div>
         <div>* 付费资源计算</div>
+        <div>* 关卡资源计算</div>
         <div>* 自动增加日常资源</div>
       </div>
     </div>
@@ -40,20 +58,20 @@ const translte = computed(() => {
       }"
     >
       <div class="resources mb-8 flex flex-col items-end">
-        <div class="mb-6 !pr-1 resource">
-          {{ resources.end.subtract(1, 'day').format('YYYY-MM-DD') }}
+        <div class="mb-6 !pr-1 resource" @click="showDateSelector">
+          {{ endDate }}
         </div>
         <div class="mb-6 resource">
-          {{ resources.originiuns }}
+          {{ originiuns }}
           <img src="/originiuns.png" class="resource-icon">
         </div>
         <div class="mb-8 resource">
-          {{ resources.orundums }}
+          {{ orundums }}
           <img src="/orundums.png" class="resource-icon">
         </div>
         <div class="flex flex-col justify-center items-center">
           <div class="w-28 h-28 flex justify-center items-center text-2xl total">
-            <span class="total-num px-2">{{ resources.total }}</span>
+            <span class="total-num px-2">{{ total }}</span>
           </div>
           <span class="mt-2 text-xs">
             最终折算抽数
@@ -61,13 +79,13 @@ const translte = computed(() => {
         </div>
       </div>
       <div class="client">
-        <div class="unit operations">
-          <div class="flex flex-col items-center opacity-50">
+        <router-link :to="{ name: 'Operations' }" class="unit operations">
+          <div class="flex flex-col items-center">
             <div>作战</div>
-            <div class="text-xs font-normal">待开发</div>
+            <div class="text-xs font-normal opacity-50">待完善</div>
           </div>
           <div class="icon" />
-        </div>
+        </router-link>
         <router-link :to="{ name: 'Warehouse' }" class="unit warehouse translate-x--8">
           <div>
             <div>仓库</div>
@@ -84,7 +102,7 @@ const translte = computed(() => {
       </div>
     </div>
   </div>
-  <div class="relative flex pb-2 justify-end text-xl">
+  <div class="fixed right-0 bottom-0 flex pb-2 justify-end text-xl leading-4">
     <a class="inline-block text-white px-4" href="https://github.com/copofe/arknights">
       <!-- eslint-disable max-len vue/max-len -->
       <svg
@@ -103,6 +121,9 @@ const translte = computed(() => {
       <!-- eslint-enable -->
     </a>
   </div>
+  <van-popup v-model:show="dateSelector" position="bottom">
+    <van-datetime-picker type="date" :min-date="new Date()" @confirm="onDateChange" />
+  </van-popup>
 </template>
 
 <style scoped>

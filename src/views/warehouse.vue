@@ -14,18 +14,21 @@ const depots = [
     name: '至纯源石',
     icon: '/originiuns.png',
     num: warehouse.originiuns,
+    source: '采购中心、首次通关获取、活动获取、官方邮件赠送。',
   },
   {
     key: 'orundums',
     name: '合成玉',
     icon: '/orundums.png',
     num: warehouse.orundums,
+    source: '剿灭作战、悖论模拟、每日任务、每周任务、月卡、贸易站提交源石订单、购买专业强化包、资质凭证商店兑换、至纯源石直接兑换（1至纯源石兑换180合成玉）、官方邮件赠送。',
   },
   {
     key: 'headhunting',
     name: '寻访凭证',
     icon: '/headhunting.png',
     num: warehouse.headhunting,
+    source: '采购中心、任务奖励。',
   },
 ];
 
@@ -37,14 +40,14 @@ const onChange = (val: string, detail: { name: string }) => {
 
 <template>
   <div class="flex-1 warehouse p-2 flex flex-col">
-    <div v-for="d in depots" :key="d.key" class="depot">
+    <div v-for="r in depots" :key="r.key" class="depot">
       <div class="flex justify-between items-end mb-2">
-        <div class="name">{{ d.name }}</div>
+        <div class="name">{{ r.name }}</div>
         <div class="flex items-end">
           <div class="stock">库存</div>
           <van-stepper
-            :default-value="d.num"
-            :name="d.key"
+            :default-value="r.num"
+            :name="r.key"
             :min="0"
             :button-size="20"
             input-width="6em"
@@ -55,16 +58,11 @@ const onChange = (val: string, detail: { name: string }) => {
       </div>
       <div class="flex py-2">
         <div class="w-1/4 text-center">
-          <img :src="d.icon">
+          <img :src="r.icon">
         </div>
-        <div class="flex-1 ml-4 flex items-center">
+        <div class="flex-1 ml-4 flex">
           <div class="flex-1 desc text-black text-2">
-            剿灭作战、悖论模拟，
-            每日任务、每周任务、月卡，
-            贸易站提交源石订单，
-            购买专业强化包、资质凭证商店兑换，
-            至纯源石直接兑换（1至纯源石兑换180合成玉），
-            官方邮件赠送，
+            {{ r.source }}
           </div>
         </div>
       </div>

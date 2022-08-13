@@ -3,7 +3,7 @@ export const monthlyCard: DayItem = {
   getter: {
     orundums: 200,
   },
-  extra: '小月卡每日可获得合成玉×600',
+  extra: '小月卡每日可获得合成玉×200',
 };
 
 export const monthlyHeadhuntingPack: MonthItem = {
