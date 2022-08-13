@@ -122,7 +122,12 @@ const onDateChange = (val: Date) => {
     </a>
   </div>
   <van-popup v-model:show="dateSelector" position="bottom">
-    <van-datetime-picker type="date" :min-date="new Date()" @confirm="onDateChange" />
+    <van-datetime-picker
+      type="date"
+      :min-date="new Date()"
+      @cancel="dateSelector = false"
+      @confirm="onDateChange"
+    />
   </van-popup>
 </template>
 

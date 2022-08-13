@@ -1,10 +1,14 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import router from './router';
 import useStore, { subscribe } from './store';
 import App from './App.vue';
 import 'uno.css';
 import './style.css';
+
+dayjs.locale('zh-cn');
 
 function setInnerHeight() {
   const vh = window.innerHeight * 0.01;

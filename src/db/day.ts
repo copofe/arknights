@@ -1,8 +1,19 @@
+import dayjs from 'dayjs';
+
 const days: DayItem[] = [
   {
     name: '每日任务',
-    getter: {
-      orundums: 100,
+    getter(start) {
+      const res = {
+        orundums: 0,
+      };
+      if (start.isSame(dayjs(), 'day')) {
+        //
+      } else {
+        res.orundums = 100;
+        console.warn(start.format('YYYY-MM-DD'), this.extra);
+      }
+      return res;
     },
     extra: '每日任务可获得×100玉',
   },

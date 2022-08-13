@@ -61,24 +61,21 @@ export default defineStore('main', {
     // 计算周期性获得的资源
     calcTimeResources(unit: 'day' | 'week' | 'month', events: EventItem[]) {
       const { start, end } = this;
-      let diff = end.clone().endOf(unit).diff(start.clone().endOf(unit), unit);
-      if (end.isSame(start, unit)) {
-        diff -= 1;
-      }
+      const diff = end.endOf(unit).diff(start.endOf(unit), unit);
       const r = {
         originiuns: 0,
         orundums: 0,
         headhunting: 0,
       };
-      for (let index = 0; index < diff; index += 1) {
+      for (let index = 0; index <= diff; index += 1) {
+        // eslint-disable-next-line no-loop-func
         events.forEach((e) => {
           const { originiuns = 0, orundums = 0, headhunting = 0 } = typeof e.getter === 'object'
             ? e.getter
-            : e.getter(this.start, this.end);
+            : e.getter(start.add(index, unit), end);
           r.originiuns += originiuns;
           r.orundums += orundums;
           r.headhunting += headhunting;
-          console.info(e.extra);
         });
       }
       this.resources = mergeResource(this.resources, r);
