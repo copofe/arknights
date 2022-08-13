@@ -22,18 +22,22 @@ const translte = computed(() => {
   <div class="index-bg" />
   <ark-logo />
   <div id="originiums" />
-  <div class="flex-1 flex">
-    <div class="flex-1"></div>
+  <div class="flex-1 flex relative">
+    <div class="flex-1 flex flex-col justify-end">
+      <div class="px-2 text-xs">
+      </div>
+    </div>
     <div
       class="flex-1 flex flex-col justify-center"
       :style="{ transform: `perspective(30em) rotateY(${translte}deg) translate3d(-20px, 0, -100px)` }"
     >
-      <div class="resources pr-2 mb-12 flex flex-col items-end">
+      <div class="resources pr-2 mb-8 flex flex-col items-end">
+        <div class="mb-6 text-black opacity-60">预估</div>
         <div class="mb-6 resource">
           {{ resources.originiuns }}
           <img src="/originiuns.png" class="resource-icon">
         </div>
-        <div class="mb-12 resource">
+        <div class="mb-8 resource">
           {{ resources.orundums }}
           <img src="/orundums.png" class="resource-icon">
         </div>
@@ -41,22 +45,30 @@ const translte = computed(() => {
           <div class="h-32 w-32 flex justify-center items-center text-2xl total">
             <span class="total-num px-2">{{ resources.total }}</span>
           </div>
-          <span class="mt-2 text-xs">截止 {{ resources.end.subtract(1, 'day').format('YYYY-MM-DD') }}</span>
+          <span class="mt-2 text-xs">{{ resources.end.subtract(1, 'day').format('YYYY-MM-DD') }}</span>
         </div>
       </div>
       <div class="client">
-        <router-link :to="{ name: 'Operations' }" class="unit operations">
-          <div>作战</div>
+        <div class="unit operations">
+          <div class="flex flex-col items-center opacity-50">
+            <div>作战</div>
+            <div class="text-xs font-normal">待开发</div>
+          </div>
           <div class="icon"></div>
-        </router-link>
+        </div>
         <router-link :to="{ name: 'Warehouse' }" class="unit warehouse translate-x--8">
-          <div>仓库</div>
+          <div>
+            <div>仓库</div>
+          </div>
           <div class="icon"></div>
         </router-link>
-        <router-link :to="{ name: 'Setting' }" class="unit setting">
-          <div>设置</div>
+        <div class="unit setting">
+          <div class="flex flex-col items-center opacity-50">
+            <div>设置</div>
+            <div class="text-xs font-normal">待开发</div>
+          </div>
           <div class="icon"></div>
-        </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -114,7 +126,7 @@ const translte = computed(() => {
   background-color: #fdfdfb;
   font-family: 'FZZhunYaSong';
   font-size: 42px;
-  @apply my-2 px-2 py-4 flex justify-around opacity-90 text-black text-opacity-90 font-bold overflow-hidden;
+  @apply my-2 p-2 flex justify-around opacity-90 text-black text-opacity-90 font-bold overflow-hidden;
 }
 .client .unit::before {
   content: '';

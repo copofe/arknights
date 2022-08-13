@@ -42,7 +42,7 @@ const onChange = (val: string, detail: { name: string }) => {
         <div class="name">{{ d.name }}</div>
         <div class="flex items-end">
           <div class="stock">库存</div>
-          <van-stepper :default-value="d.num" :name="d.key" :min="0" :button-size="20" @change="onChange" />
+          <van-stepper :default-value="d.num" :name="d.key" :min="0" :button-size="20" input-width="6em" integer @change="onChange" />
         </div>
       </div>
       <div class="flex">
