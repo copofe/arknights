@@ -1,21 +1,21 @@
 <script lang="ts">
 export default {
-  name: "Index",
+  name: 'Index',
 };
 </script>
 
 <script lang="ts" setup>
-import { useDeviceOrientation } from '@vueuse/core'
-import useStore from "::/store";
-import { ref, computed } from 'vue';
+import { useDeviceOrientation } from '@vueuse/core';
+import { computed } from 'vue';
+import useStore from '::/store';
 
 const resources = useStore();
-const { gamma } = useDeviceOrientation()
+const { gamma } = useDeviceOrientation();
 
-const origin = 4.5
+const origin = 4.5;
 const translte = computed(() => {
-  return -(((gamma.value || 0) + origin * 10) / origin)
-})
+  return -(((gamma.value || 0) + origin * 10) / origin);
+});
 </script>
 
 <template>
@@ -24,15 +24,25 @@ const translte = computed(() => {
   <div id="originiums" />
   <div class="flex-1 flex relative">
     <div class="flex-1 flex flex-col justify-end">
-      <div class="px-2 text-xs">
+      <div class="px-2 text-xs text-gray-300">
+        <div>开发进度</div>
+        <div class="line-through opacity-50">* 库存资源设置</div>
+        <div class="line-through opacity-50">* 日常资源计算</div>
+        <div>* 活动资源计算</div>
+        <div>* 付费资源计算</div>
+        <div>* 自动增加日常资源</div>
       </div>
     </div>
     <div
       class="flex-1 flex flex-col justify-center"
-      :style="{ transform: `perspective(30em) rotateY(${translte}deg) translate3d(-20px, 0, -100px)` }"
+      :style="{
+        transform: `perspective(30em) rotateY(${translte}deg) translate3d(-20px, 0, -100px)`
+      }"
     >
-      <div class="resources pr-2 mb-8 flex flex-col items-end">
-        <div class="mb-6 text-black opacity-60">预估</div>
+      <div class="resources mb-8 flex flex-col items-end">
+        <div class="mb-6 !pr-1 resource">
+          {{ resources.end.subtract(1, 'day').format('YYYY-MM-DD') }}
+        </div>
         <div class="mb-6 resource">
           {{ resources.originiuns }}
           <img src="/originiuns.png" class="resource-icon">
@@ -42,10 +52,12 @@ const translte = computed(() => {
           <img src="/orundums.png" class="resource-icon">
         </div>
         <div class="flex flex-col justify-center items-center">
-          <div class="h-32 w-32 flex justify-center items-center text-2xl total">
+          <div class="w-28 h-28 flex justify-center items-center text-2xl total">
             <span class="total-num px-2">{{ resources.total }}</span>
           </div>
-          <span class="mt-2 text-xs">{{ resources.end.subtract(1, 'day').format('YYYY-MM-DD') }}</span>
+          <span class="mt-2 text-xs">
+            最终折算抽数
+          </span>
         </div>
       </div>
       <div class="client">
@@ -54,27 +66,41 @@ const translte = computed(() => {
             <div>作战</div>
             <div class="text-xs font-normal">待开发</div>
           </div>
-          <div class="icon"></div>
+          <div class="icon" />
         </div>
         <router-link :to="{ name: 'Warehouse' }" class="unit warehouse translate-x--8">
           <div>
             <div>仓库</div>
           </div>
-          <div class="icon"></div>
+          <div class="icon" />
         </router-link>
-        <div class="unit setting">
-          <div class="flex flex-col items-center opacity-50">
+        <router-link :to="{ name: 'Setting' }" class="unit setting">
+          <div class="flex flex-col items-center">
             <div>设置</div>
-            <div class="text-xs font-normal">待开发</div>
+            <div class="text-xs font-normal opacity-50">待完善</div>
           </div>
-          <div class="icon"></div>
-        </div>
+          <div class="icon" />
+        </router-link>
       </div>
     </div>
   </div>
   <div class="relative flex pb-2 justify-end text-xl">
     <a class="inline-block text-white px-4" href="https://github.com/copofe/arknights">
-      <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" width="1.2em" height="1.2em"><path fill="currentColor" fill-rule="evenodd" d="M16 2a14 14 0 0 0-4.43 27.28c.7.13 1-.3 1-.67v-2.38c-3.89.84-4.71-1.88-4.71-1.88a3.71 3.71 0 0 0-1.62-2.05c-1.27-.86.1-.85.1-.85a2.94 2.94 0 0 1 2.14 1.45a3 3 0 0 0 4.08 1.16a2.93 2.93 0 0 1 .88-1.87c-3.1-.36-6.37-1.56-6.37-6.92a5.4 5.4 0 0 1 1.44-3.76a5 5 0 0 1 .14-3.7s1.17-.38 3.85 1.43a13.3 13.3 0 0 1 7 0c2.67-1.81 3.84-1.43 3.84-1.43a5 5 0 0 1 .14 3.7a5.4 5.4 0 0 1 1.44 3.76c0 5.38-3.27 6.56-6.39 6.91a3.33 3.33 0 0 1 .95 2.59v3.84c0 .46.25.81 1 .67A14 14 0 0 0 16 2Z"/></svg>
+      <!-- eslint-disable max-len vue/max-len -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 32 32"
+        width="1.2em"
+        height="1.2em"
+      >
+        <path
+          fill="currentColor"
+          fill-rule="evenodd"
+          d="M16 2a14 14 0 0 0-4.43 27.28c.7.13 1-.3 1-.67v-2.38c-3.89.84-4.71-1.88-4.71-1.88a3.71 3.71 0 0 0-1.62-2.05c-1.27-.86.1-.85.1-.85a2.94 2.94 0 0 1 2.14 1.45a3 3 0 0 0 4.08 1.16a2.93 2.93 0 0 1 .88-1.87c-3.1-.36-6.37-1.56-6.37-6.92a5.4 5.4 0 0 1 1.44-3.76a5 5 0 0 1 .14-3.7s1.17-.38 3.85 1.43a13.3 13.3 0 0 1 7 0c2.67-1.81 3.84-1.43 3.84-1.43a5 5 0 0 1 .14 3.7a5.4 5.4 0 0 1 1.44 3.76c0 5.38-3.27 6.56-6.39 6.91a3.33 3.33 0 0 1 .95 2.59v3.84c0 .46.25.81 1 .67A14 14 0 0 0 16 2Z"
+        />
+      </svg>
+      <!-- eslint-enable -->
     </a>
   </div>
 </template>
@@ -126,7 +152,7 @@ const translte = computed(() => {
   background-color: #fdfdfb;
   font-family: 'FZZhunYaSong';
   font-size: 42px;
-  @apply my-2 p-2 flex justify-around opacity-90 text-black text-opacity-90 font-bold overflow-hidden;
+  @apply my-2 p-2 flex justify-around opacity-90 text-black font-bold overflow-hidden;
 }
 .client .unit::before {
   content: '';

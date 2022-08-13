@@ -1,16 +1,14 @@
 <script lang="ts">
 export default {
-  name: 'Operations'
-}
+  name: 'Operations',
+};
 </script>
 <script lang="ts" setup>
 import useStore from '::/store';
 
-const store = useStore
+const store = useStore;
 </script>
 
 <template>
-  <div>
-    
-  </div>
+  <div />
 </template>

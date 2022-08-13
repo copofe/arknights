@@ -16,5 +16,5 @@ window.addEventListener('resize', setInnerHeight);
 const pinia = createPinia();
 pinia.use(subscribe);
 createApp(App).use(pinia).use(router).mount('#app');
-const store = useStore()
-store.init()
+const store = useStore();
+store.init();

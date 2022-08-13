@@ -1,12 +1,12 @@
 <script lang="ts">
 export default {
-  name: 'Warehouse'
-}
+  name: 'Warehouse',
+};
 </script>
 <script lang="ts" setup>
 import useStore from '::/store';
 
-const { warehouse, setWarehouseResource } = useStore()
+const { warehouse, setWarehouseResource } = useStore();
 
 const depots = [
   {
@@ -27,12 +27,12 @@ const depots = [
     icon: '/headhunting.png',
     num: warehouse.headhunting,
   },
-]
+];
 
 const onChange = (val: string, detail: { name: string }) => {
   // @ts-ignore
-  setWarehouseResource(detail.name as Resource, val * 1)
-}
+  setWarehouseResource(detail.name, val * 1);
+};
 </script>
 
 <template>
@@ -42,13 +42,30 @@ const onChange = (val: string, detail: { name: string }) => {
         <div class="name">{{ d.name }}</div>
         <div class="flex items-end">
           <div class="stock">库存</div>
-          <van-stepper :default-value="d.num" :name="d.key" :min="0" :button-size="20" input-width="6em" integer @change="onChange" />
+          <van-stepper
+            :default-value="d.num"
+            :name="d.key"
+            :min="0"
+            :button-size="20"
+            input-width="6em"
+            integer
+            @change="onChange"
+          />
         </div>
       </div>
-      <div class="flex">
-        <img :src="d.icon">
-        <div class="flex-1 ml-4 flex flex-col">
-          <div class="flex-1 desc"></div>
+      <div class="flex py-2">
+        <div class="w-1/4 text-center">
+          <img :src="d.icon">
+        </div>
+        <div class="flex-1 ml-4 flex items-center">
+          <div class="flex-1 desc text-black text-2">
+            剿灭作战、悖论模拟，
+            每日任务、每周任务、月卡，
+            贸易站提交源石订单，
+            购买专业强化包、资质凭证商店兑换，
+            至纯源石直接兑换（1至纯源石兑换180合成玉），
+            官方邮件赠送，
+          </div>
         </div>
       </div>
     </div>
@@ -79,6 +96,6 @@ const onChange = (val: string, detail: { name: string }) => {
   @apply text-xs leading-3 px-2 min-w-6 py-1 bg-neutral-400 text-center;
 }
 .depot img {
-  @apply w-16vw h-16vw;
+  @apply w-12vw;
 }
 </style>

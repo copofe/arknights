@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 const months: MonthItem[] = [
   {
@@ -12,9 +12,9 @@ const months: MonthItem[] = [
   {
     name: '每月签到',
     getter: (start, end) => {
-      let headhunting = 0
+      let headhunting = 0;
       if (start.isBefore(dayjs(start).date(17)) || end.isAfter(dayjs(end).date(17))) {
-        headhunting += 1
+        headhunting += 1;
       }
       return {
         headhunting,

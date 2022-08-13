@@ -1,20 +1,21 @@
-import dayjs from "dayjs";
-import { defineStore, PiniaPluginContext, StateTree } from "pinia";
-import { mergeWith } from "ramda";
-import { offsetStartTime, offsetEndTime } from "::/utils";
-import dayEvents from "::/db/day";
-import weekEvents from "::/db/week";
-import monthEvents from "::/db/month";
+import dayjs from 'dayjs';
+import { defineStore, PiniaPluginContext } from 'pinia';
+import { mergeWith } from 'ramda';
+import { offsetStartTime, offsetEndTime } from '::/utils';
+import dayEvents from '::/db/day';
+import weekEvents from '::/db/week';
+import monthEvents from '::/db/month';
+import { monthlyCard, monthlyHeadhuntingPack } from '::/db/paid';
 
 function mergeResource(u: Resources, n: Resources) {
   return mergeWith((u1: number, n1: number) => u1 + n1, u, n);
 }
 
-export default defineStore("main", {
+export default defineStore('main', {
   state: () => {
-    const historyWarehouse = JSON.parse(localStorage.getItem('warehouse') || '{}');
+    const { warehouse, paid } = JSON.parse(localStorage.getItem('warehouse') || '{}');
     return {
-      warehouse: historyWarehouse.value || {
+      warehouse: warehouse || {
         originiuns: 0,
         orundums: 0,
         headhunting: 0,
@@ -23,6 +24,9 @@ export default defineStore("main", {
         originiuns: 0,
         orundums: 0,
         headhunting: 0,
+      },
+      paid: paid || {
+        monthlyCard: false,
       },
       start: offsetStartTime(dayjs()),
       end: offsetEndTime(dayjs('2022-10-31')),
@@ -49,6 +53,10 @@ export default defineStore("main", {
     setEndTime(time: number) {
       this.end = dayjs(time);
     },
+    setMonthlyCard(isPaid: boolean) {
+      this.paid.monthlyCard = isPaid;
+      this.init();
+    },
     // 计算周期性获得的资源
     calcTimeResources(unit: 'day' | 'week' | 'month', events: EventItem[]) {
       const diff = this.end.diff(this.start, unit);
@@ -58,19 +66,28 @@ export default defineStore("main", {
         orundums: 0,
         headhunting: 0,
       };
-      for (let index = 0; index < len; index++) {
+      for (let index = 0; index < len; index += 1) {
         events.forEach((e) => {
-          const { originiuns = 0, orundums = 0, headhunting = 0 } = typeof e.getter === 'object' ? e.getter : e.getter(this.start, this.end);
+          const { originiuns = 0, orundums = 0, headhunting = 0 } = typeof e.getter === 'object'
+            ? e.getter
+            : e.getter(this.start, this.end);
           r.originiuns += originiuns;
           r.orundums += orundums;
           r.headhunting += headhunting;
         });
       }
-      console.log(len, unit, r);
       this.resources = mergeResource(this.resources, r);
     },
     init() {
-      this.calcTimeResources('day', dayEvents);
+      this.resources = {
+        originiuns: 0,
+        orundums: 0,
+        headhunting: 0,
+      };
+      this.calcTimeResources(
+        'day',
+        this.paid.monthlyCard ? [...dayEvents, monthlyCard] : dayEvents,
+      );
       this.calcTimeResources('week', weekEvents);
       this.calcTimeResources('month', monthEvents);
     },
@@ -81,7 +98,8 @@ export const subscribe = (context: PiniaPluginContext) => {
   context.store.$subscribe((mutation, state) => {
     localStorage.setItem('warehouse', JSON.stringify({
       time: state.start,
-      value: state.warehouse,
+      warehouse: state.warehouse,
+      paid: state.paid,
     }));
   });
 };
