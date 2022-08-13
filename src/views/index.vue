@@ -81,7 +81,7 @@ const translte = computed(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url(UI_HOME_FRONT_BKG.png) no-repeat right bottom;
+  background: url(/UI_HOME_FRONT_BKG.png) no-repeat right bottom;
   background-size: cover;
   z-index: 0;
   /* filter: brightness(1) */
