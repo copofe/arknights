@@ -35,8 +35,8 @@ const { operations } = storeToRefs(store);
 
 <style scoped>
 .paradox-simulation .bg {
-  @apply h-24;
-  background: url(/paradox-simulation.jpg) no-repeat -50% center;
+  @apply h-32;
+  background: url(/paradox-simulation.jpg) no-repeat center center;
   background-size: cover;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
