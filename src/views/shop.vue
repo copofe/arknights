@@ -15,7 +15,7 @@ const depots = [
     icon: '/monthly-card.png',
     enable: paid.monthlyCard,
     cost: '￥30',
-    resource: '至纯源石×6，每日签到获得合成玉×200',
+    resource: '至纯源石 × 6，每日签到获得合成玉 × 200',
     note: '计算时不包含源石，请自行在仓库中添加',
   },
 ];

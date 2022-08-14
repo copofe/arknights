@@ -17,7 +17,7 @@ const months: MonthItem[] = [
       }
       return res;
     },
-    extra: '绿票商店可获得合成玉×600，寻访凭证×4，',
+    extra: '绿票商店可获得合成玉 × 600，寻访凭证 × 4，',
   },
   {
     name: '每月签到',
@@ -39,7 +39,7 @@ const months: MonthItem[] = [
         headhunting,
       };
     },
-    extra: '每月17号签到可获得寻访凭证×1',
+    extra: '每月17号签到可获得寻访凭证 × 1',
   },
 ];
 
