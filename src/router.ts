@@ -1,4 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import Index from '::/views/index.vue';
+import Operations from '::/views/operations.vue';
+import Warehouse from '::/views/warehouse.vue';
+import Setting from '::/views/setting.vue';
 
 const router = createRouter({
   history: createWebHistory('/'),
@@ -6,22 +10,22 @@ const router = createRouter({
     {
       path: '/',
       name: 'Index',
-      component: () => import('::/views/index.vue'),
+      component: Index,
     },
     {
       path: '/operations',
       name: 'Operations',
-      component: () => import('::/views/operations.vue'),
+      component: Operations,
     },
     {
       path: '/warehouse',
       name: 'Warehouse',
-      component: () => import('::/views/warehouse.vue'),
+      component: Warehouse,
     },
     {
       path: '/setting',
       name: 'Setting',
-      component: () => import('::/views/setting.vue'),
+      component: Setting,
     },
   ],
   scrollBehavior(to, from, savedPosition) {
