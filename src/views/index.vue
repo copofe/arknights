@@ -92,9 +92,9 @@ const onDateChange = (val: Date) => {
           </div>
           <div class="icon" />
         </router-link>
-        <router-link :to="{ name: 'Setting' }" class="unit setting">
+        <router-link :to="{ name: 'Shop' }" class="unit shop">
           <div class="flex flex-col items-center">
-            <div>设置</div>
+            <div>采购</div>
             <div class="text-xs font-normal opacity-50">待完善</div>
           </div>
           <div class="icon" />
@@ -205,20 +205,20 @@ const onDateChange = (val: Date) => {
 .client .icon {
   width: 60px;
   height: 60px;
-  background: url(/UI_HOME.png);
   filter: invert(20%);
   opacity: .5;
 }
 .operations .icon {
-  background-position: calc(-420px * 0.6) calc(-535.714px * 0.6);
-  background-size: auto 1600%;
+  background: url(/operations.png) no-repeat;
+  background-size: contain;
 }
 .warehouse .icon {
-  background-position: calc(172px * 0.6) calc(-944px * 0.6);
-  background-size: auto 1700%;
+  background: url(/warehouse.png) no-repeat;
+  background-size: contain;
 }
-.setting .icon {
-  background-position: calc(-86.25px * 0.6) calc(-76.25px * 0.6);
-  background-size: auto 1700%;
+.shop .icon {
+  width: 65.825px;
+  background: url(/shop.png) no-repeat;
+  background-size: contain;
 }
 </style>

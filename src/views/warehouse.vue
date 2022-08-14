@@ -21,14 +21,14 @@ const depots = [
     name: '合成玉',
     icon: '/orundums.png',
     num: warehouse.orundums,
-    source: '剿灭作战、悖论模拟、每日任务、每周任务、月卡、贸易站提交源石订单、购买专业强化包、资质凭证商店兑换、至纯源石直接兑换（1至纯源石兑换180合成玉）、官方邮件赠送。',
+    source: '剿灭作战、悖论模拟、每日任务、每周任务、月卡、贸易站提交源石订单、购买专业强化包、资质凭证商店兑换、至纯源石直接兑换（1 : 180）、官方邮件赠送。',
   },
   {
     key: 'headhunting',
     name: '寻访凭证',
     icon: '/headhunting.png',
     num: warehouse.headhunting,
-    source: '采购中心、任务奖励。',
+    source: '采购中心、任务奖励、活动商店兑换、官方邮件赠送。',
   },
 ];
 
@@ -94,6 +94,6 @@ const onChange = (val: string, detail: { name: string }) => {
   @apply text-xs leading-3 px-2 min-w-6 py-1 bg-neutral-400 text-center;
 }
 .depot img {
-  @apply w-12vw;
+  @apply w-60%;
 }
 </style>
