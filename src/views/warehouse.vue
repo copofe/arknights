@@ -71,6 +71,9 @@ const onChange = (val: string, detail: { name: string }) => {
 </template>
 
 <style scoped>
+.depot {
+  @apply mb-2 p-2;
+}
 .depot .name {
   @apply text-xs leading-3 h-5 px-2 flex items-center bg-neutral-700;
 }
