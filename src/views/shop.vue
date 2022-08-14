@@ -23,7 +23,7 @@ const depots = [
 
 <template>
   <div class="setting flex-1 p-2">
-    <div v-for="r in depots" :key="r.key" class="depot">
+    <div v-for="r in depots" :key="r.key" class="depot card">
       <div class="flex justify-between items-end mb-2">
         <div class="name">{{ r.name }}</div>
         <van-switch :model-value="paid.monthlyCard" :size="18" @change="setMonthlyCard" />
@@ -46,19 +46,9 @@ const depots = [
   </div>
 </template>
 
-<style>
-.setting {
-  background: url(/w-bg.png) repeat rgba(248, 248, 248, 0.8);
-  background-clip: border-box;
-  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.1);
-}
-
+<style scoped>
 .depot {
   @apply mb-2 p-2;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
 }
 
 .depot .name {

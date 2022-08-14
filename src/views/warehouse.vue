@@ -40,7 +40,7 @@ const onChange = (val: string, detail: { name: string }) => {
 
 <template>
   <div class="flex-1 warehouse p-2 flex flex-col">
-    <div v-for="r in depots" :key="r.key" class="depot">
+    <div v-for="r in depots" :key="r.key" class="depot card">
       <div class="flex justify-between items-end mb-2">
         <div class="name">{{ r.name }}</div>
         <div class="flex items-end">
@@ -71,18 +71,6 @@ const onChange = (val: string, detail: { name: string }) => {
 </template>
 
 <style scoped>
-.warehouse {
-  background: url(/w-bg.png) repeat rgba(248,248,248,0.8);
-  background-clip: border-box;
-  box-shadow: inset 0 0 24px rgba(0,0,0,0.1);
-}
-.depot {
-  @apply mb-2 p-2;
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-}
 .depot .name {
   @apply text-xs leading-3 h-5 px-2 flex items-center bg-neutral-700;
 }

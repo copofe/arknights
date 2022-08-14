@@ -34,7 +34,16 @@ a {
   flex-direction: column;
   font-family: 'Bender';
   color: #fff;
+  background: url(/w-bg.png) repeat rgba(248, 248, 248, 0.8);
+  background-clip: border-box;
   overflow: hidden;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 @media screen and (max-width: 750px) {

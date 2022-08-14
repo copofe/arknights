@@ -16,7 +16,9 @@ function mergeResource(u: Resources, n: Resources) {
 
 export default defineStore('main', {
   state: () => {
-    const { warehouse, paid, end } = JSON.parse(localStorage.getItem('warehouse') || '{}');
+    const {
+      warehouse, paid, operations, end,
+    } = JSON.parse(localStorage.getItem('warehouse') || '{}');
     return {
       warehouse: warehouse || {
         originiuns: 0,
@@ -31,8 +33,14 @@ export default defineStore('main', {
       paid: paid || {
         monthlyCard: false,
       },
+      operations: operations || {
+        paradoxSimulation: 0,
+      },
       start: offsetStartTime(dayjs()),
       end: offsetEndTime(dayjs(end || '2022-10-31')),
+      settings: {
+        annihilationReward: 1800,
+      },
     };
   },
   getters: {
@@ -58,6 +66,13 @@ export default defineStore('main', {
       this.paid.monthlyCard = isPaid;
       this.init();
     },
+    setAnnihilationReward(num: number) {
+      const n = Math.min(num, 1800);
+      if (n !== this.settings.annihilationReward) {
+        this.settings.annihilationReward = Math.min(num, 1800);
+        this.init();
+      }
+    },
     // 计算周期性获得的资源
     calcTimeResources(unit: 'day' | 'week' | 'month', events: EventItem[]) {
       const { start, end } = this;
@@ -72,13 +87,18 @@ export default defineStore('main', {
         events.forEach((e) => {
           const { originiuns = 0, orundums = 0, headhunting = 0 } = typeof e.getter === 'object'
             ? e.getter
-            : e.getter(start.add(index, unit), end);
+            : e.getter(start.add(index, unit), end, this.settings);
           r.originiuns += originiuns;
           r.orundums += orundums;
           r.headhunting += headhunting;
         });
       }
       this.resources = mergeResource(this.resources, r);
+    },
+    // 悖论模拟
+    setParadoxSimulation(n: number) {
+      this.operations.paradoxSimulation = n;
+      this.init();
     },
     init() {
       this.resources = {
@@ -92,6 +112,9 @@ export default defineStore('main', {
       );
       this.calcTimeResources('week', weekEvents);
       this.calcTimeResources('month', monthEvents);
+      this.resources = mergeResource(this.resources, {
+        orundums: 200 * this.operations.paradoxSimulation,
+      });
     },
   },
 });
@@ -103,6 +126,7 @@ export const subscribe = (context: PiniaPluginContext) => {
       end: state.end,
       warehouse: state.warehouse,
       paid: state.paid,
+      operations: state.operations,
     }));
   });
 };

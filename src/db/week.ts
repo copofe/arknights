@@ -23,14 +23,14 @@ const weeks: WeekItem[] = [
   },
   {
     name: '剿灭',
-    getter(start) {
+    getter(start, end, settings) {
       const res = {
         orundums: 0,
       };
       if (start.isSame(dayjs(), 'week')) {
         //
       } else {
-        res.orundums = 1800;
+        res.orundums = settings.annihilationReward;
         console.warn(
           // eslint-disable-next-line vue/max-len
           `${start.startOf('week').format('YYYY-MM-DD')}~${start.endOf('week').format('YYYY-MM-DD')}`,

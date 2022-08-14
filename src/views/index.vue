@@ -102,7 +102,10 @@ const onDateChange = (val: Date) => {
       </div>
     </div>
   </div>
-  <div class="fixed right-0 bottom-0 flex pb-2 justify-end text-xl leading-4">
+  <div class="fixed right-0 bottom-0 flex pb-2 justify-end text-5 leading-5">
+    <router-link :to="{ name: 'Settings' }">
+      <van-icon name="setting-o" class="text-white text-6" />
+    </router-link>
     <a class="inline-block text-white px-4" href="https://github.com/copofe/arknights">
       <!-- eslint-disable max-len vue/max-len -->
       <svg

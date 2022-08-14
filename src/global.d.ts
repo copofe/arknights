@@ -6,8 +6,11 @@ declare global {
     orundums?: number;
     headhunting?: number;
   }
+  interface Settings {
+    annihilationReward: number;
+  }
   type Resource = 'originiuns' | 'orundums' | 'headhunting';
-  type ResourceGetter = Resources | ((start: Dayjs, end: Dayjs) => Resources);
+  type ResourceGetter = Resources | ((start: Dayjs, end: Dayjs, settings: Settings) => Resources);
 
   interface DayItem {
     name: string;

@@ -15,7 +15,7 @@ const days: DayItem[] = [
       }
       return res;
     },
-    extra: '每日任务可获得×100玉',
+    extra: '每日任务可获得合成玉×100',
   },
 ];
 
