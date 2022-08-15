@@ -68,20 +68,6 @@ export default defineStore('main', {
       this.paid.monthlyCard = isPaid;
       this.init();
     },
-    setAnnihilationReward(num: number) {
-      const n = Math.min(num, 1800);
-      if (n !== this.settings.annihilationReward) {
-        this.settings.annihilationReward = n;
-        this.init();
-      }
-    },
-    setCurrentWeekAnnihilation(num: number) {
-      const n = Math.min(num, 1800);
-      if (n !== this.settings.currentWeekAnnihilation) {
-        this.settings.currentWeekAnnihilation = n;
-        this.init();
-      }
-    },
     updateSettings<T extends keyof Settings>(key: T, val: Settings[T]) {
       this.settings[key] = val;
       this.init();

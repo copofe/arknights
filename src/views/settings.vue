@@ -21,7 +21,7 @@ const { settings } = storeToRefs(store);
       max="1800"
       input-align="right"
       :model-value="settings.annihilationReward"
-      @update:model-value="v => store.updateSettings('annihilationReward', v * 1)"
+      @update:model-value="(v: number) => store.updateSettings('annihilationReward', v * 1)"
     >
       <template #button>
         /1800
@@ -34,7 +34,7 @@ const { settings } = storeToRefs(store);
       :max="settings.annihilationReward"
       input-align="right"
       :model-value="settings.currentWeekAnnihilation"
-      @update:model-value="v => store.updateSettings('currentWeekAnnihilation', v * 1)"
+      @update:model-value="(v: number) => store.updateSettings('currentWeekAnnihilation', v * 1)"
     >
       <template #button>
         /{{ settings.annihilationReward }}
@@ -45,7 +45,7 @@ const { settings } = storeToRefs(store);
         <van-switch
           :model-value="settings.currentWeekTaskOrundums"
           size="24"
-          @change="v => store.updateSettings('currentWeekTaskOrundums', v)"
+          @change="(v: boolean) => store.updateSettings('currentWeekTaskOrundums', v)"
         />
       </template>
     </van-cell>
