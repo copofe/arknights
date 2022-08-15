@@ -8,6 +8,8 @@ declare global {
   }
   interface Settings {
     annihilationReward: number;
+    currentWeekAnnihilation: number;
+    currentWeekTaskOrundums: boolean;
   }
   type Resource = 'originiuns' | 'orundums' | 'headhunting';
   type ResourceGetter = Resources | ((start: Dayjs, end: Dayjs, settings: Settings) => Resources);

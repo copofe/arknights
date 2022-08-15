@@ -3,14 +3,19 @@ import dayjs from 'dayjs';
 const weeks: WeekItem[] = [
   {
     name: '每周任务',
-    getter(start) {
+    getter(start, end, settings) {
       const res = {
         orundums: 0,
       };
+      const weeklyTaskOrundums = 500;
       if (start.isSame(dayjs(), 'week')) {
-        //
+        if (settings.currentWeekTaskOrundums) {
+          res.orundums += weeklyTaskOrundums;
+        }
       } else {
-        res.orundums = 500;
+        res.orundums += weeklyTaskOrundums;
+      }
+      if (res.orundums > 0) {
         console.warn(
           // eslint-disable-next-line vue/max-len
           `${start.startOf('week').format('YYYY-MM-DD')}~${start.endOf('week').format('YYYY-MM-DD')}`,
@@ -28,9 +33,13 @@ const weeks: WeekItem[] = [
         orundums: 0,
       };
       if (start.isSame(dayjs(), 'week')) {
-        //
+        if (settings.currentWeekAnnihilation > 0) {
+          res.orundums += settings.currentWeekAnnihilation;
+        }
       } else {
-        res.orundums = settings.annihilationReward;
+        res.orundums += settings.annihilationReward;
+      }
+      if (res.orundums > 0) {
         console.warn(
           // eslint-disable-next-line vue/max-len
           `${start.startOf('week').format('YYYY-MM-DD')}~${start.endOf('week').format('YYYY-MM-DD')}`,

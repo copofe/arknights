@@ -17,7 +17,7 @@ function mergeResource(u: Resources, n: Resources) {
 export default defineStore('main', {
   state: () => {
     const {
-      warehouse, paid, operations, end,
+      warehouse, paid, operations, end, settings,
     } = JSON.parse(localStorage.getItem('warehouse') || '{}');
     return {
       warehouse: warehouse || {
@@ -38,8 +38,10 @@ export default defineStore('main', {
       },
       start: offsetStartTime(dayjs()),
       end: offsetEndTime(dayjs(end || '2022-10-31')),
-      settings: {
+      settings: settings || {
         annihilationReward: 1800,
+        currentWeekAnnihilation: 0,
+        currentWeekTaskOrundums: false,
       },
     };
   },
@@ -69,9 +71,20 @@ export default defineStore('main', {
     setAnnihilationReward(num: number) {
       const n = Math.min(num, 1800);
       if (n !== this.settings.annihilationReward) {
-        this.settings.annihilationReward = Math.min(num, 1800);
+        this.settings.annihilationReward = n;
         this.init();
       }
+    },
+    setCurrentWeekAnnihilation(num: number) {
+      const n = Math.min(num, 1800);
+      if (n !== this.settings.currentWeekAnnihilation) {
+        this.settings.currentWeekAnnihilation = n;
+        this.init();
+      }
+    },
+    updateSettings<T extends keyof Settings>(key: T, val: Settings[T]) {
+      this.settings[key] = val;
+      this.init();
     },
     // 计算周期性获得的资源
     calcTimeResources(unit: 'day' | 'week' | 'month', events: EventItem[]) {
@@ -127,6 +140,7 @@ export const subscribe = (context: PiniaPluginContext) => {
       warehouse: state.warehouse,
       paid: state.paid,
       operations: state.operations,
+      settings: state.settings,
     }));
   });
 };
