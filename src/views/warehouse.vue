@@ -39,6 +39,7 @@ const onChange = (val: string, detail: { name: string }) => {
 </script>
 
 <template>
+  <ark-header />
   <div class="flex-1 warehouse p-2 flex flex-col">
     <div v-for="r in depots" :key="r.key" class="depot card">
       <div class="flex justify-between items-end mb-2">

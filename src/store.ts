@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import { defineStore, PiniaPluginContext } from 'pinia';
 import { mergeWith } from 'ramda';
@@ -10,15 +10,19 @@ import { monthlyCard } from '::/db/paid';
 
 dayjs.extend(weekOfYear);
 
-function mergeResource(u: Resources, n: Resources) {
-  return mergeWith((u1: number, n1: number) => u1 + n1, u, n);
+function mergeResource(r: Resources[]) {
+  return r.reduce((pre, next) => {
+    return mergeWith((p: number, n: number) => p + n, pre, next);
+  }, {} as Resources);
 }
 
 export default defineStore('main', {
   state: () => {
     const {
-      warehouse, paid, operations, end, settings,
+      warehouse, paid, operations, start, end, settings,
     } = JSON.parse(localStorage.getItem('warehouse') || '{}');
+    const isSameWeek = dayjs(start).isSame(dayjs(), 'week');
+
     return {
       warehouse: warehouse || {
         originiuns: 0,
@@ -38,10 +42,11 @@ export default defineStore('main', {
       },
       start: offsetStartTime(dayjs()),
       end: offsetEndTime(dayjs(end || '2022-10-31')),
-      settings: settings || {
-        annihilationReward: 1800,
-        currentWeekAnnihilation: 0,
-        currentWeekTaskOrundums: false,
+      settings: {
+        annihilationReward: settings?.annihilationReward || 1800,
+        currentWeekAnnihilation: isSameWeek ? settings?.currentWeekAnnihilation || 0 : 0,
+        currentWeekTaskCompleted: isSameWeek ? settings?.currentWeekTaskCompleted || false : false,
+        todayTaskCompleted: settings?.todayTaskCompleted || true,
       },
     };
   },
@@ -73,9 +78,16 @@ export default defineStore('main', {
       this.init();
     },
     // 计算周期性获得的资源
-    calcTimeResources(unit: 'day' | 'week' | 'month', events: EventItem[]) {
-      const { start, end } = this;
-      const diff = end.endOf(unit).diff(start.endOf(unit), unit);
+    calcTimeResources(
+      unit: 'day' | 'week' | 'month',
+      events: EventItem[],
+      start?: Dayjs,
+      end?: Dayjs,
+      settings?: Settings,
+    ) {
+      const _start = start || this.start;
+      const _end = end || this.end;
+      const diff = _end.endOf(unit).diff(_start.endOf(unit), unit);
       const r = {
         originiuns: 0,
         orundums: 0,
@@ -86,13 +98,13 @@ export default defineStore('main', {
         events.forEach((e) => {
           const { originiuns = 0, orundums = 0, headhunting = 0 } = typeof e.getter === 'object'
             ? e.getter
-            : e.getter(start.add(index, unit), end, this.settings);
+            : e.getter(_start.add(index, unit), _end, settings || this.settings);
           r.originiuns += originiuns;
           r.orundums += orundums;
           r.headhunting += headhunting;
         });
       }
-      this.resources = mergeResource(this.resources, r);
+      return r;
     },
     // 悖论模拟
     setParadoxSimulation(n: number) {
@@ -105,15 +117,34 @@ export default defineStore('main', {
         orundums: 0,
         headhunting: 0,
       };
-      this.calcTimeResources(
-        'day',
-        this.paid.monthlyCard ? [...dayEvents, monthlyCard] : dayEvents,
-      );
-      this.calcTimeResources('week', weekEvents);
-      this.calcTimeResources('month', monthEvents);
-      this.resources = mergeResource(this.resources, {
-        orundums: 200 * this.operations.paradoxSimulation,
-      });
+      (this.resources as Resources) = mergeResource([
+        this.calcTimeResources(
+          'day',
+          this.paid.monthlyCard ? [...dayEvents, monthlyCard] : dayEvents,
+        ),
+        this.calcTimeResources('week', weekEvents),
+        this.calcTimeResources('month', monthEvents),
+        {
+          orundums: 200 * this.operations.paradoxSimulation,
+        },
+      ]);
+    },
+    // TODO: 计算存储记录时间与当前时间内可获取的资源
+    autoAddDailyResources(
+      start: Dayjs,
+      end: Dayjs,
+      settings?: Settings,
+    ) {
+      const resources = [
+        this.calcTimeResources(
+          'day',
+          this.paid.monthlyCard ? [...dayEvents, monthlyCard] : dayEvents,
+          start,
+          end,
+          settings,
+        ),
+      ];
+      this.warehouse = mergeResource(resources);
     },
   },
 });

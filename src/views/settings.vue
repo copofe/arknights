@@ -13,10 +13,11 @@ const { settings } = storeToRefs(store);
 </script>
 
 <template>
+  <ark-header />
   <div class="p-2">
     <van-field
       label="剿灭报酬上限"
-      label-class="flex-1"
+      label-class="flex-1 text-black"
       type="digit"
       max="1800"
       input-align="right"
@@ -24,12 +25,12 @@ const { settings } = storeToRefs(store);
       @update:model-value="(v: number) => store.updateSettings('annihilationReward', v * 1)"
     >
       <template #button>
-        /1800
+        / 1800
       </template>
     </van-field>
     <van-field
       label="本周剿灭进度"
-      label-class="flex-1"
+      label-class="flex-1 text-black"
       type="digit"
       :max="settings.annihilationReward"
       input-align="right"
@@ -37,15 +38,15 @@ const { settings } = storeToRefs(store);
       @update:model-value="(v: number) => store.updateSettings('currentWeekAnnihilation', v * 1)"
     >
       <template #button>
-        /{{ settings.annihilationReward }}
+        / {{ settings.annihilationReward }}
       </template>
     </van-field>
     <van-cell center title="本周任务合成玉是否领取">
       <template #right-icon>
         <van-switch
-          :model-value="settings.currentWeekTaskOrundums"
-          size="24"
-          @change="(v: boolean) => store.updateSettings('currentWeekTaskOrundums', v)"
+          :model-value="settings.currentWeekTaskCompleted"
+          size="20"
+          @change="(v: boolean) => store.updateSettings('currentWeekTaskCompleted', v)"
         />
       </template>
     </van-cell>

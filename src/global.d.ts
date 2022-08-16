@@ -9,7 +9,9 @@ declare global {
   interface Settings {
     annihilationReward: number;
     currentWeekAnnihilation: number;
-    currentWeekTaskOrundums: boolean;
+    currentWeekTaskCompleted: boolean;
+    // 今日任务100玉是否领取
+    todayTaskCompleted: boolean;
   }
   type Resource = 'originiuns' | 'orundums' | 'headhunting';
   type ResourceGetter = Resources | ((start: Dayjs, end: Dayjs, settings: Settings) => Resources);

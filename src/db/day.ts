@@ -8,9 +8,11 @@ const days: DayItem[] = [
         orundums: 0,
       };
       if (start.isSame(dayjs(), 'day')) {
-        //
+        // 默认已领取
       } else {
         res.orundums = 100;
+      }
+      if (res.orundums > 0) {
         console.warn(start.format('YYYY-MM-DD'), this.extra);
       }
       return res;

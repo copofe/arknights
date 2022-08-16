@@ -35,7 +35,7 @@ const onDateChange = (val: Date) => {
 
 <template>
   <div class="index-bg" />
-  <ark-logo />
+  <ark-header />
   <div id="originiums" />
   <div class="flex-1 flex relative">
     <div class="flex-1 flex flex-col justify-end">

@@ -13,9 +13,14 @@ const { operations } = storeToRefs(store);
 </script>
 
 <template>
-  <div class="flex-1 p-2 operations">
+  <div class="bg" />
+  <ark-header />
+  <div class="flex-1 p-2 relative">
     <div class="paradox-simulation card w-full">
-      <div class="bg" />
+      <div class="flex justify-between p-2 border-b border-white border-op-10">
+        <span>悖论模拟</span>
+        <span class="subtitle">paradox sumulation</span>
+      </div>
       <van-field
         label="请输入待完成的干员数量"
         type="digit"
@@ -24,41 +29,42 @@ const { operations } = storeToRefs(store);
         input-align="right"
         :model-value="operations.paradoxSimulation"
         @update:model-value="store.setParadoxSimulation"
-      >
-        <template #button>
-          × 200
-        </template>
-      </van-field>
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
-.operations {
-  @apply relative;
-}
 .card {
-  --van-field-label-color: #fff;
-  --van-field-right-icon-color: #fff;
-  --van-field-input-text-color: #fff;
+  --van-field-label-color: rgb(200, 200, 200);
+  --van-field-right-icon-color: rgb(200, 200, 200);
+  --van-field-input-text-color: rgb(200, 200, 200);
+  background: linear-gradient(
+    -45deg,
+    rgba(0, 0, 0, 0.5) 30%,
+    rgba(255, 0, 0, 0.5)
+  );
+  color: rgb(200, 200, 200);
 }
-.operations::before {
-  content: " ";
+.bg {
   position: absolute;
+  content: " ";
   left: 0;
   top: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
-  background: url(/o-bg.jpg) no-repeat center center;
+  background: url(/o-bg.jpg) no-repeat left top;
   background-size: cover;
-  filter: grayscale(1) invert(1);
+  filter: invert(1) grayscale(1);
   z-index: 0;
 }
-.paradox-simulation .bg {
-  @apply h-32;
-  background: url(/paradox-simulation.jpg) no-repeat center center;
-  background-size: cover;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+.paradox-simulation .subtitle {
+  @apply text-xs uppercase;
+  /* background: linear-gradient(to right, rgba(255, 255, 255, .6) 60%, transparent);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text; */
 }
-
 </style>

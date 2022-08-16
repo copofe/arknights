@@ -22,6 +22,7 @@ const depots = [
 </script>
 
 <template>
+  <ark-header />
   <div class="setting flex-1 p-2">
     <div v-for="r in depots" :key="r.key" class="depot card">
       <div class="flex justify-between items-end mb-2">
