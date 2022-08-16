@@ -17,7 +17,7 @@ const { operations } = storeToRefs(store);
   <ark-header />
   <div class="flex-1 p-2 relative">
     <div class="paradox-simulation card w-full">
-      <div class="flex justify-between p-2 border-b border-white border-op-10">
+      <div class="flex justify-between items-center p-2 border-b border-white border-op-10">
         <span>悖论模拟</span>
         <span class="subtitle">paradox sumulation</span>
       </div>

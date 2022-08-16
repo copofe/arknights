@@ -9,7 +9,7 @@ const weeks: WeekItem[] = [
       };
       const weeklyTaskOrundums = 500;
       if (start.isSame(dayjs(), 'week')) {
-        if (settings.currentWeekTaskCompleted) {
+        if (!settings.currentWeekTaskCompleted) {
           res.orundums += weeklyTaskOrundums;
         }
       } else {
